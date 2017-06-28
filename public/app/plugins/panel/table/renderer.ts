@@ -98,6 +98,18 @@ export class TableRenderer {
       };
     }
 
+    if (column.style.type === 'date-gmt') {
+      return v => {
+        if (v === undefined || v === null) {
+          return '-';
+        }
+
+        if (_.isArray(v)) { v = v[0]; }
+        var date = moment(v);
+        return date.format(column.style.dateFormat);
+      };
+    }
+
     if (column.style.type === 'number') {
       let valueFormatter = kbn.valueFormats[column.unit || column.style.unit];
 
